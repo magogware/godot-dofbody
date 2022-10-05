@@ -1,0 +1,263 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://addons/dofbody/DoFBody.gd" type="Script" id=1]
+[ext_resource path="res://addons/dofbody/example/Handle.gd" type="Script" id=2]
+[ext_resource path="res://addons/dofbody/DoF.gd" type="Script" id=3]
+[ext_resource path="res://addons/dofbody/example/Player/FPSPlayer.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 10, 1, 10 )
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( -5, 0.5, 5, 5, 0.5, 5, -5, -0.5, 5, 5, 0.5, 5, 5, -0.5, 5, -5, -0.5, 5, 5, 0.5, -5, -5, 0.5, -5, 5, -0.5, -5, -5, 0.5, -5, -5, -0.5, -5, 5, -0.5, -5, 5, 0.5, 5, 5, 0.5, -5, 5, -0.5, 5, 5, 0.5, -5, 5, -0.5, -5, 5, -0.5, 5, -5, 0.5, -5, -5, 0.5, 5, -5, -0.5, -5, -5, 0.5, 5, -5, -0.5, 5, -5, -0.5, -5, 5, 0.5, 5, -5, 0.5, 5, 5, 0.5, -5, -5, 0.5, 5, -5, 0.5, -5, 5, 0.5, -5, -5, -0.5, 5, 5, -0.5, 5, -5, -0.5, -5, 5, -0.5, 5, 5, -0.5, -5, -5, -0.5, -5 )
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 3 )
+Mode = 0
+"Rotation axis" = 1
+"Edge axis" = 2
+"Rotation is linked to controller" = false
+"Open range of motion" = 90.0
+"Close range of motion" = 90.0
+"Max opening speed" = 0.0
+"Max closing speed" = 0.0
+"Retraction direction" = 2
+"Open latching mode" = 1
+"Close latching mode" = 2
+"Latching distance" = 100.0
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 0.1, 2, 1.5 )
+
+[sub_resource type="ConvexPolygonShape" id=5]
+points = PoolVector3Array( -0.0561475, -0.756, -0.506148, 0.05, 0.694672, 0.461065, 0.05, 0.694672, -0.465164, -0.0561475, 0.756, 0.502049, 0.05, -0.694536, 0.460975, -0.0561475, -0.756, 0.502049, -0.0561475, 0.756, -0.506148, 0.05, -0.694536, -0.465073, 0.0418537, 0.75, 0.497951, 0.0416788, 0.746926, -0.5 )
+
+[sub_resource type="CubeMesh" id=6]
+size = Vector3( 0.3, 0.1, 0.1 )
+
+[sub_resource type="ConvexPolygonShape" id=7]
+points = PoolVector3Array( -0.146875, -0.05, -0.05, 0.146875, 0.05, 0.05, 0.146875, -0.05, 0.05, -0.146875, 0.05, 0.05, 0.146875, 0.05, -0.05, 0.146875, -0.05, -0.05, -0.146875, -0.05, 0.05, -0.146875, 0.05, -0.05 )
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 3 )
+Mode = 1
+"Translation axis" = 2
+"Open range of motion" = 3.0
+"Close range of motion" = 0.0
+"Max opening speed" = 0.8
+"Max closing speed" = 0.0
+"Retraction direction" = 0
+"Retraction speed" = 0.3
+"Open latching mode" = 2
+"Close latching mode" = 2
+
+[sub_resource type="CubeMesh" id=9]
+size = Vector3( 0.5, 0.1, 0.5 )
+
+[sub_resource type="ConvexPolygonShape" id=10]
+points = PoolVector3Array( -0.237434, -0.05, -0.237459, 0.243792, 0.05, 0.243791, -0.243766, 0.05, 0.243791, 0.243792, 0.05, -0.243791, 0.23746, -0.05, 0.237459, -0.243766, 0.05, -0.243791, -0.237434, -0.05, 0.237459, 0.23746, -0.05, -0.237459 )
+
+[sub_resource type="CubeMesh" id=11]
+size = Vector3( 0.1, 0.05, 0.1 )
+
+[sub_resource type="ConvexPolygonShape" id=12]
+points = PoolVector3Array( 0.0477152, 0.025, 0.0477152, -0.0492544, -0.025, -0.0492544, -0.0492544, -0.025, 0.0492544, 0.0492544, -0.025, -0.0492544, -0.0477152, 0.025, -0.0477152, 0.0492544, -0.025, 0.0492544, -0.0477152, 0.025, 0.0477152, 0.0477152, 0.025, -0.0477152 )
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 3 )
+Mode = 0
+"Rotation axis" = 2
+"Edge axis" = 1
+"Rotation is linked to controller" = true
+"Linked axis" = 1
+"Open range of motion" = 90.0
+"Close range of motion" = 90.0
+"Max opening speed" = 0.0
+"Max closing speed" = 0.0
+"Retraction direction" = 2
+"Open latching mode" = 2
+"Close latching mode" = 2
+
+[sub_resource type="PrismMesh" id=14]
+size = Vector3( 0.5, 0.5, 0.1 )
+
+[sub_resource type="ConvexPolygonShape" id=15]
+points = PoolVector3Array( -0.240001, -0.239953, -0.05, 0.00496783, 0.239953, 0.05, 0.00999499, 0.229947, 0.05, 0.00496783, 0.239953, -0.05, 0.239976, -0.239953, -0.05, -0.240001, -0.239953, 0.05, 0.239976, -0.239953, 0.05, -0.00499253, 0.239953, -0.05, -0.00499253, 0.239953, 0.05, -0.239949, -0.229897, 0.0499892, 0.239971, -0.229943, -0.0499991, -0.239949, -0.229897, -0.0499892, 0.239971, -0.229943, 0.0499991 )
+
+[sub_resource type="CubeMesh" id=16]
+size = Vector3( 0.05, 0.05, 0.05 )
+
+[sub_resource type="ConvexPolygonShape" id=17]
+points = PoolVector3Array( -0.025, -0.025, -0.025, 0.0249988, 0.025, 0.025, 0.0249988, 0.025, -0.025, 0.0249988, -0.025, 0.025, -0.025, 0.025, 0.025, 0.0249988, -0.025, -0.025, -0.025, 0.025, -0.025, -0.025, -0.025, 0.025 )
+
+[sub_resource type="Resource" id=27]
+script = ExtResource( 3 )
+Mode = 1
+"Translation axis" = 0
+"Open range of motion" = 3.0
+"Close range of motion" = 3.0
+"Max opening speed" = 0.0
+"Max closing speed" = 0.0
+"Retraction direction" = 2
+"Open latching mode" = 2
+"Close latching mode" = 2
+
+[sub_resource type="Resource" id=28]
+script = ExtResource( 3 )
+Mode = 1
+"Translation axis" = 1
+"Open range of motion" = 3.0
+"Close range of motion" = 3.0
+"Max opening speed" = 0.0
+"Max closing speed" = 0.0
+"Retraction direction" = 2
+"Open latching mode" = 2
+"Close latching mode" = 2
+
+[sub_resource type="CubeMesh" id=20]
+size = Vector3( 0.3, 0.3, 0.1 )
+
+[sub_resource type="ConvexPolygonShape" id=21]
+points = PoolVector3Array( 0.145455, 0.145455, 0.05, -0.145435, -0.145455, -0.05, 0.145455, -0.145455, -0.05, -0.145435, -0.145455, 0.05, -0.145435, 0.145455, -0.05, 0.145455, -0.145455, 0.05, 0.145455, 0.145455, -0.05, -0.145435, 0.145455, 0.05 )
+
+[sub_resource type="CubeMesh" id=22]
+size = Vector3( 0.2, 0.1, 0.1 )
+
+[sub_resource type="ConvexPolygonShape" id=23]
+points = PoolVector3Array( -0.0985089, -0.05, -0.05, 0.0954305, 0.05, 0.05, 0.0954305, -0.0484127, 0.05, 0.0985089, -0.05, -0.05, -0.0954305, 0.05, -0.0484127, -0.0954305, -0.0484127, 0.05, -0.0954305, 0.05, 0.05, 0.0954305, 0.05, -0.0484127 )
+
+[node name="ExampleRoot" type="Spatial"]
+
+[node name="Floor" type="StaticBody" parent="."]
+collision_mask = 2
+
+[node name="MeshInstance" type="MeshInstance" parent="Floor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+shape = SubResource( 2 )
+
+[node name="HingedDoor" type="RigidBody" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.47485, 0.852228, -1.85134 )
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 1 )
+dofs = [ SubResource( 24 ) ]
+
+[node name="MeshInstance" type="MeshInstance" parent="HingedDoor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="HingedDoor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5 )
+shape = SubResource( 5 )
+
+[node name="Handle" type="RigidBody" parent="HingedDoor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0725 )
+collision_layer = 8
+collision_mask = 4
+can_sleep = false
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="HingedDoor/Handle"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="HingedDoor/Handle"]
+shape = SubResource( 7 )
+
+[node name="Drawer" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16136, -1.77817 )
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 1 )
+dofs = [ SubResource( 25 ) ]
+
+[node name="MeshInstance" type="MeshInstance" parent="Drawer"]
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Drawer"]
+shape = SubResource( 10 )
+
+[node name="Handle" type="RigidBody" parent="Drawer"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.265149 )
+collision_layer = 8
+collision_mask = 4
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Drawer/Handle"]
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Drawer/Handle"]
+shape = SubResource( 12 )
+
+[node name="Dial" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.41545, 1.23467, -1.8056 )
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 1 )
+dofs = [ SubResource( 26 ) ]
+
+[node name="MeshInstance" type="MeshInstance" parent="Dial"]
+mesh = SubResource( 14 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Dial"]
+shape = SubResource( 15 )
+
+[node name="Handle" type="RigidBody" parent="Dial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0249081, 0.0872594 )
+collision_layer = 8
+collision_mask = 4
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Dial/Handle"]
+mesh = SubResource( 16 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Dial/Handle"]
+shape = SubResource( 17 )
+
+[node name="2DTranslation" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64036, 1.21647, -1.86186 )
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 1 )
+dofs = [ SubResource( 27 ), SubResource( 28 ) ]
+
+[node name="MeshInstance" type="MeshInstance" parent="2DTranslation"]
+mesh = SubResource( 20 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="2DTranslation"]
+shape = SubResource( 21 )
+
+[node name="Handle" type="RigidBody" parent="2DTranslation"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0620481 )
+collision_layer = 8
+collision_mask = 4
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="2DTranslation/Handle"]
+mesh = SubResource( 22 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="2DTranslation/Handle"]
+shape = SubResource( 23 )
+
+[node name="FPSPlayer" parent="." instance=ExtResource( 4 )]
+
+[connection signal="grabbed" from="HingedDoor/Handle" to="HingedDoor" method="_grabbed"]
+[connection signal="released" from="HingedDoor/Handle" to="HingedDoor" method="_released"]
+[connection signal="grabbed" from="Drawer/Handle" to="Drawer" method="_grabbed"]
+[connection signal="released" from="Drawer/Handle" to="Drawer" method="_released"]
+[connection signal="grabbed" from="Dial/Handle" to="Dial" method="_grabbed"]
+[connection signal="released" from="Dial/Handle" to="Dial" method="_released"]
+[connection signal="grabbed" from="2DTranslation/Handle" to="2DTranslation" method="_grabbed"]
+[connection signal="released" from="2DTranslation/Handle" to="2DTranslation" method="_released"]
