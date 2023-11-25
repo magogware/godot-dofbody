@@ -1,6 +1,6 @@
+@tool
 extends Resource
 class_name DoF
-tool
 
 enum Axis {
 	X,
@@ -31,54 +31,54 @@ var secondary_axis: int;
 var linked_axis: int;
 var rotation_linked_to_controller: bool = false
 
-var open_rom: float = 0 setget _set_open_rom;
-var close_rom: float = 0 setget _set_close_rom;
+var open_rom: float = 0 : set = _set_open_rom
+var close_rom: float = 0 : set = _set_close_rom
 
 var retract_mode: int = RetractMode.NO_RETRACT
-var retract_speed: float = 0 setget _set_retract_speed;
+var retract_speed: float = 0 : set = _set_retract_speed
 
-var max_open_speed: float = 0 setget _set_max_open_speed;
-var max_close_speed: float = 0 setget _set_max_close_speed;
+var max_open_speed: float = 0 : set = _set_max_open_speed
+var max_close_speed: float = 0 : set = _set_max_close_speed
 
 var num_ticks: int
 
-var latch_dist: float = 0 setget _set_latch_dist;
+var latch_dist: float = 0 : set = _set_latch_dist
 var open_latch_mode: int = LatchMode.NEVER_LATCH
 var close_latch_mode: int = LatchMode.NEVER_LATCH
 
 func _set_open_rom(val: float):
-	if !Engine.editor_hint and mode == DoFMode.ROTATION:
-		open_rom = deg2rad(val)
+	if !Engine.is_editor_hint() and mode == DoFMode.ROTATION:
+		open_rom = deg_to_rad(val)
 	else:
 		open_rom = val
 		
 func _set_close_rom(val: float):
-	if !Engine.editor_hint and mode == DoFMode.ROTATION:
-		close_rom = deg2rad(val)
+	if !Engine.is_editor_hint() and mode == DoFMode.ROTATION:
+		close_rom = deg_to_rad(val)
 	else:
 		close_rom = val
 				
 func _set_retract_speed(val: float):
-	if !Engine.editor_hint and mode == DoFMode.ROTATION:
-		retract_speed = deg2rad(val)
+	if !Engine.is_editor_hint() and mode == DoFMode.ROTATION:
+		retract_speed = deg_to_rad(val)
 	else:
 		retract_speed = val
 
 func _set_max_open_speed(val: float):
-	if !Engine.editor_hint and mode == DoFMode.ROTATION:
-		max_open_speed = deg2rad(val)
+	if !Engine.is_editor_hint() and mode == DoFMode.ROTATION:
+		max_open_speed = deg_to_rad(val)
 	else:
 		max_open_speed = val
 		
 func _set_max_close_speed(val: float):
-	if !Engine.editor_hint and mode == DoFMode.ROTATION:
-		max_close_speed = deg2rad(val)
+	if !Engine.is_editor_hint() and mode == DoFMode.ROTATION:
+		max_close_speed = deg_to_rad(val)
 	else:
 		max_close_speed = val
 		
 func _set_latch_dist(val: float):
-	if !Engine.editor_hint and mode == DoFMode.ROTATION:
-		latch_dist = deg2rad(val)
+	if !Engine.is_editor_hint() and mode == DoFMode.ROTATION:
+		latch_dist = deg_to_rad(val)
 	else:
 		latch_dist = val
 
@@ -88,21 +88,21 @@ func _get_property_list() -> Array:
 		"name": "Mode",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": String(DoFMode.keys()).replace("[", "").replace("]", "")
+		"hint_string": DoFMode.keys().reduce(func(accum: String, val: String) -> String: return accum+", "+val),
 	})
 	var primary_axis_tip := "Translation axis" if mode != DoFMode.ROTATION else "Rotation axis"
 	properties.append({
 		"name": primary_axis_tip,
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": String(Axis.keys()).replace("[", "").replace("]", "")
+		"hint_string": Axis.keys().reduce(func(accum: String, val: String): return accum+", "+val),
 	})
 	if (mode == DoFMode.ROTATION):
 		properties.append({
 			"name": "Edge axis",
 			"type": TYPE_INT,
 			"hint": PROPERTY_HINT_ENUM,
-			"hint_string": String(Axis.keys()).replace("[", "").replace("]", "")
+			"hint_string": Axis.keys().reduce(func(accum: String, val: String): return accum+", "+val),
 		})
 		properties.append({
 			"name": "Rotation is linked to controller",
@@ -113,7 +113,7 @@ func _get_property_list() -> Array:
 				"name": "Linked axis",
 				"type": TYPE_INT,
 				"hint": PROPERTY_HINT_ENUM,
-				"hint_string": String(Axis.keys()).replace("[", "").replace("]", "")
+				"hint_string": Axis.keys().reduce(func(accum: String, val: String): return accum+", "+val),
 			})
 
 	properties.append({
@@ -123,19 +123,19 @@ func _get_property_list() -> Array:
 	})
 	properties.append({
 		"name": "Open range of motion",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 	})
 	properties.append({
 		"name": "Close range of motion",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 	})
 	properties.append({
 		"name": "Max opening speed",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 	})
 	properties.append({
 		"name": "Max closing speed",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 	})
 
 	properties.append({
@@ -147,12 +147,12 @@ func _get_property_list() -> Array:
 		"name": "Retraction direction",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": String(RetractMode.keys()).replace("[", "").replace("]", "")
+		"hint_string": RetractMode.keys().reduce(func(accum: String, val: String): return accum+", "+val),
 	})
 	if retract_mode != RetractMode.NO_RETRACT:
 		properties.append({
 			"name": "Retraction speed",
-			"type": TYPE_REAL,
+			"type": TYPE_FLOAT,
 		})
 
 	properties.append({
@@ -164,18 +164,18 @@ func _get_property_list() -> Array:
 		"name": "Open latching mode",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": String(LatchMode.keys()).replace("[", "").replace("]", "")
+		"hint_string": LatchMode.keys().reduce(func(accum: String, val: String): return accum+", "+val),
 	})
 	properties.append({
 		"name": "Close latching mode",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": String(LatchMode.keys()).replace("[", "").replace("]", "")
+		"hint_string": LatchMode.keys().reduce(func(accum: String, val: String): return accum+", "+val),
 	})
 	if close_latch_mode == LatchMode.LATCH_WITHIN_DIST or open_latch_mode == LatchMode.LATCH_WITHIN_DIST:
 		properties.append({
 			"name": "Latching distance",
-			"type": TYPE_REAL,
+			"type": TYPE_FLOAT,
 		})
 	properties.append({
 		"name": "Number of ticks",
@@ -184,7 +184,7 @@ func _get_property_list() -> Array:
 
 	return properties
 
-func _set(prop: String, val) -> bool:
+func _set(prop: StringName, val: Variant) -> bool:
 	match prop:
 		"Mode":
 			mode = val
@@ -216,10 +216,10 @@ func _set(prop: String, val) -> bool:
 			_set_latch_dist(val)
 		"Number of ticks":
 			num_ticks = val
-	property_list_changed_notify()
+	notify_property_list_changed()
 	return true
 
-func _get(prop: String):
+func _get(prop: StringName):
 	match prop:
 		"Mode":
 			return mode

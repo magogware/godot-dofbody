@@ -1,8 +1,8 @@
-tool
+@tool
 extends EditorPlugin
 
 func _enter_tree():
-	add_custom_type("DoFBody", "RigidBody", load("res://addons/dofbody/DoFBody.gd"), load("res://RigidBody3D.svg"))
+	add_custom_type("DoFBody", "RigidBody3D", load("res://addons/dofbody/DoFBody.gd"), load("res://RigidBody3D.svg"))
 
 
 func _exit_tree():

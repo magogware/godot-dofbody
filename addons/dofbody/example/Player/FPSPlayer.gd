@@ -1,4 +1,4 @@
-extends KinematicBody
+extends CharacterBody3D
 
 var vel = Vector3()
 var dir = Vector3()
@@ -18,7 +18,7 @@ func _physics_process(delta):
 
 func _process_input(delta):
 	dir = Vector3()
-	var cam_xform = $RotationHelper/Camera.get_global_transform()
+	var cam_xform = $RotationHelper/Camera3D.get_global_transform()
 
 	var input_movement_vector = Vector2()
 	if Input.is_physical_key_pressed(KEY_W):
@@ -55,10 +55,16 @@ func _process_movement(delta):
 	else:
 		accel = 16
 
-	hvel = hvel.linear_interpolate(target, accel * delta)
+	hvel = hvel.lerp(target, accel * delta)
 	vel.x = hvel.x
 	vel.z = hvel.z
-	vel = move_and_slide(vel, Vector3(0, 1, 0), 0.05, 4, deg2rad(40))
+	set_velocity(vel)
+	set_up_direction(Vector3(0, 1, 0))
+	set_floor_stop_on_slope_enabled(0.05)
+	set_max_slides(4)
+	set_floor_max_angle(deg_to_rad(40))
+	move_and_slide()
+	vel = velocity
 
 func _process_object():
 	pass
@@ -70,8 +76,8 @@ func _process_object():
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		$RotationHelper.rotate_x(deg2rad(event.relative.y * 0.05 * -1))
-		self.rotate_y(deg2rad(event.relative.x * 0.05 * -1))
+		$RotationHelper.rotate_x(deg_to_rad(event.relative.y * 0.05 * -1))
+		self.rotate_y(deg_to_rad(event.relative.x * 0.05 * -1))
 
 		var camera_rot = $RotationHelper.rotation_degrees
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
@@ -81,32 +87,32 @@ func _input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	elif Input.is_mouse_button_pressed(BUTTON_LEFT) and !held_object:
+	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and !held_object:
 		var bodies_in_zone = $RotationHelper/GrabZone.get_overlapping_bodies()
 		if bodies_in_zone.size() > 0:
 			_grab_body(bodies_in_zone)
-	elif held_object and !Input.is_mouse_button_pressed(BUTTON_LEFT):
+	elif held_object and !Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		_drop_body()
 	elif Input.is_physical_key_pressed(KEY_E):
-		rotating = -1;
+		rotating = -1 # reversed "rotating" for Camera2D
 	elif Input.is_physical_key_pressed(KEY_Q):
-		rotating = 1;
+		rotating = 1 # reversed "rotating" for Camera2D
 	elif !Input.is_physical_key_pressed(KEY_E) and !Input.is_physical_key_pressed(KEY_Q):
-		rotating = 0;
+		rotating = 0 # reversed "rotating" for Camera2D
 		
 func _grab_body(bodies_in_zone):
 	var grabbed_body
 	for body in bodies_in_zone:
 		if body is GrabbableBody:
 			held_object = body
-			held_object.grabbed($RotationHelper/RightHandPos)
+			held_object.grab($RotationHelper/RightHandPos)
 			break
 			
 func _drop_body():
-	held_object.released()
+	held_object.release()
 #	elif held_object is Handle:
 #		held_object.released(global_controller_velocity)
 #	else:
-	held_object.apply_impulse(Vector3(0,0,0), -$RotationHelper/Camera.global_transform.basis.z)
+	held_object.apply_impulse(-$RotationHelper/Camera3D.global_transform.basis.z, Vector3(0,0,0))
 	
 	held_object = null
